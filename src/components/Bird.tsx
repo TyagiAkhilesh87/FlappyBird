@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming, Easing, interpolate, Extrapolate } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming, Easing, interpolate, Extrapolate, SharedValue } from 'react-native-reanimated';
 import Svg, { Path, Circle, Ellipse, G, Defs, LinearGradient, Stop } from 'react-native-svg';
 import { CONFIG, COLORS } from '../constants/Config';
 
 interface BirdProps {
-    birdY: Animated.SharedValue<number>;
-    birdRotation: Animated.SharedValue<number>;
-    birdVelocity: Animated.SharedValue<number>;
+    birdY: SharedValue<number>;
+    birdRotation: SharedValue<number>;
+    birdVelocity: SharedValue<number>;
 }
 
 export const Bird: React.FC<BirdProps> = ({ birdY, birdRotation, birdVelocity }) => {
@@ -32,7 +32,7 @@ export const Bird: React.FC<BirdProps> = ({ birdY, birdRotation, birdVelocity })
                 { rotate: `${birdRotation.value}deg` },
                 { scaleX },
                 { scaleY },
-            ],
+            ] as const,
         };
     });
 
@@ -40,7 +40,7 @@ export const Bird: React.FC<BirdProps> = ({ birdY, birdRotation, birdVelocity })
         return {
             transform: [
                 { rotate: `${wingRotation.value}deg` },
-            ],
+            ] as const,
         };
     });
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, SharedValue } from 'react-native-reanimated';
 import { CONFIG, COLORS } from '../constants/Config';
 
 interface PipeProps {
     pipe: { id: number; initialScroll: number; height: number };
-    scrollX: Animated.SharedValue<number>;
+    scrollX: SharedValue<number>;
 }
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -13,7 +13,7 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 export const Pipe: React.FC<PipeProps> = ({ pipe, scrollX }) => {
     const animatedStyle = useAnimatedStyle(() => {
         return {
-            transform: [{ translateX: pipe.initialScroll - scrollX.value }],
+            transform: [{ translateX: pipe.initialScroll - scrollX.value }] as const,
         };
     });
 
