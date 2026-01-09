@@ -57,7 +57,7 @@ export default function Hub() {
                 </View>
 
                 <Animated.Text entering={FadeInUp.delay(800)} style={styles.footerText}>
-                    DESIGNED BY 9-FIGURE DEV
+                    made by love vibe coding - Akhilesh Tyagi
                 </Animated.Text>
             </View>
         </View>
