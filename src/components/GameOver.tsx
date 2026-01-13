@@ -47,7 +47,7 @@ export const GameOver: React.FC<GameOverProps> = ({ onRestart }) => {
         transform: [
             { scale: withRepeat(withSpring(1.2), -1, true) },
             { rotate: withRepeat(withTiming('360deg', { duration: 2000 }), -1, false) }
-        ]
+        ] as any
     }));
 
     return (

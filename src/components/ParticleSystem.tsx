@@ -29,7 +29,7 @@ const Particle: React.FC<ParticleProps> = ({ x, y, onDone, id }) => {
             { translateX: x + translateX.value },
             { translateY: y + translateY.value },
             { scale: scale.value },
-        ],
+        ] as any,
     }));
 
     return <Animated.View style={[styles.particle, animatedStyle]} />;

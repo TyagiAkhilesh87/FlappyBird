@@ -38,7 +38,7 @@ export const Bird: React.FC<BirdProps> = ({ birdY, birdRotation, birdVelocity })
                 { rotate: `${rotation}deg` },
                 { scaleX },
                 { scaleY },
-            ],
+            ] as any,
         };
     });
 
