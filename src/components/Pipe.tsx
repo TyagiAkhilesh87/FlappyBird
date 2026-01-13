@@ -13,7 +13,7 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 export const Pipe: React.FC<PipeProps> = ({ pipe, scrollX }) => {
     const animatedStyle = useAnimatedStyle(() => {
         return {
-            transform: [{ translateX: pipe.initialScroll - scrollX.value }] as const,
+            transform: [{ translateX: pipe.initialScroll - scrollX.value }],
         };
     });
 

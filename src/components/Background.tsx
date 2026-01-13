@@ -31,6 +31,17 @@ export const Background: React.FC = () => {
         transform: [{ translateX: scrollX.value }],
     }));
 
+    const renderLayer = (style: any, children: React.ReactNode) => (
+        <Animated.View style={[styles.parallaxLayer, style]}>
+            <View style={styles.layerContent}>
+                {children}
+            </View>
+            <View style={[styles.layerContent, { left: SCREEN_WIDTH }]}>
+                {children}
+            </View>
+        </Animated.View>
+    );
+
     return (
         <View style={styles.container}>
             {/* Sky Gradient */}
@@ -40,36 +51,30 @@ export const Background: React.FC = () => {
             </View>
 
             {/* Distant Layer: Clouds (Slowest) */}
-            <Animated.View style={[styles.parallaxLayer, layer1Style]}>
-                {[0, 1].map((i) => (
-                    <View key={i} style={[styles.layerContent, { left: i * SCREEN_WIDTH }]}>
-                        <View style={[styles.cloud, { top: 50, left: 40, width: 100, height: 40 }]} />
-                        <View style={[styles.cloud, { top: 120, left: 200, width: 140, height: 50 }]} />
-                        <View style={[styles.cloud, { top: 80, left: 400, width: 120, height: 45 }]} />
-                    </View>
-                ))}
-            </Animated.View>
+            {renderLayer(layer1Style, (
+                <>
+                    <View style={[styles.cloud, { top: 50, left: 40, width: 100, height: 40 }]} />
+                    <View style={[styles.cloud, { top: 120, left: 200, width: 140, height: 50 }]} />
+                    <View style={[styles.cloud, { top: 80, left: 400, width: 120, height: 45 }]} />
+                </>
+            ))}
 
             {/* Mid Layer: Mountains (Medium) */}
-            <Animated.View style={[styles.parallaxLayer, layer2Style]}>
-                {[0, 1].map((i) => (
-                    <View key={i} style={[styles.layerContent, { left: i * SCREEN_WIDTH }]}>
-                        <View style={[styles.mountain, { left: 20, height: 180, width: 220, backgroundColor: '#2c3e50', opacity: 0.6 }]} />
-                        <View style={[styles.mountain, { left: 180, height: 240, width: 280, backgroundColor: '#34495e', opacity: 0.6 }]} />
-                        <View style={[styles.mountain, { left: 400, height: 150, width: 200, backgroundColor: '#2c3e50', opacity: 0.6 }]} />
-                    </View>
-                ))}
-            </Animated.View>
+            {renderLayer(layer2Style, (
+                <>
+                    <View style={[styles.mountain, { left: 20, height: 180, width: 220, backgroundColor: '#2c3e50', opacity: 0.6 }]} />
+                    <View style={[styles.mountain, { left: 180, height: 240, width: 280, backgroundColor: '#34495e', opacity: 0.6 }]} />
+                    <View style={[styles.mountain, { left: 400, height: 150, width: 200, backgroundColor: '#2c3e50', opacity: 0.6 }]} />
+                </>
+            ))}
 
             {/* Near Layer: Hills (Fastest) */}
-            <Animated.View style={[styles.parallaxLayer, layer3Style]}>
-                {[0, 1].map((i) => (
-                    <View key={i} style={[styles.layerContent, { left: i * SCREEN_WIDTH }]}>
-                        <View style={[styles.hill, { left: 0, height: 80, width: 300 }]} />
-                        <View style={[styles.hill, { left: 250, height: 100, width: 350 }]} />
-                    </View>
-                ))}
-            </Animated.View>
+            {renderLayer(layer3Style, (
+                <>
+                    <View style={[styles.hill, { left: 0, height: 80, width: 300 }]} />
+                    <View style={[styles.hill, { left: 250, height: 100, width: 350 }]} />
+                </>
+            ))}
 
             {/* Ground */}
             <View style={[styles.ground, { backgroundColor: COLORS.GROUND }]}>
