@@ -8,7 +8,9 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     console.warn('Supabase credentials missing! Check your .env file or Vercel environment variables.');
 }
 
-export const supabase = createClient(SUPABASE_URL || '', SUPABASE_ANON_KEY || '');
+export const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY)
+    ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
 
 export interface ScoreEntry {
     id: string;
@@ -19,12 +21,17 @@ export interface ScoreEntry {
 
 export const getTopScores = async (limit = 10) => {
     try {
+        if (!supabase) {
+            console.error('Supabase client not initialized');
+            return [];
+        }
         console.log('Fetching top scores from Supabase...');
         const { data, error } = await supabase
             .from('scores')
             .select('*')
             .order('score', { ascending: false })
             .limit(limit);
+        // ...
 
         if (error) {
             console.error('Supabase fetch error:', error.message, error.details);
@@ -41,6 +48,10 @@ export const getTopScores = async (limit = 10) => {
 
 export const submitScore = async (username: string, score: number) => {
     try {
+        if (!supabase) {
+            console.error('Supabase client not initialized');
+            return false;
+        }
         console.log(`Submitting score for ${username}: ${score}`);
         const { data, error } = await supabase
             .from('scores')
@@ -62,6 +73,10 @@ export const submitScore = async (username: string, score: number) => {
 
 export const deleteScore = async (id: string) => {
     try {
+        if (!supabase) {
+            console.error('Supabase client not initialized');
+            return false;
+        }
         console.log(`Attempting to delete score ID: ${id}`);
         const { error } = await supabase
             .from('scores')
@@ -83,6 +98,10 @@ export const deleteScore = async (id: string) => {
 
 export const getUserRank = async (score: number) => {
     try {
+        if (!supabase) {
+            console.error('Supabase client not initialized');
+            return null;
+        }
         const { count, error } = await supabase
             .from('scores')
             .select('*', { count: 'exact', head: true })

@@ -1,0 +1,2 @@
+// Placeholder sound file - Replace with actual sound effect
+// This file prevents build errors when sound assets are referenced

@@ -89,6 +89,9 @@ export const GameOver: React.FC<GameOverProps> = ({ onRestart }) => {
                             value={username}
                             onChangeText={setUsername}
                             maxLength={15}
+                            onSubmitEditing={handleSubmit}
+                            returnKeyType="send"
+                            blurOnSubmit={false}
                         />
                         <TouchableOpacity
                             style={[styles.submitIconButton, { opacity: username.trim() ? 1 : 0.5 }]}
